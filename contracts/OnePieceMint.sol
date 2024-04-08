@@ -8,7 +8,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract OnePieceMint is VRFConsumerBaseV2, ERC721, Ownable, ERC721URIStorage {
-    
+
+    uint256 private s_tokenCounter; // Used to keep track of the number of NFTs being minted
+    VRFCoordinatorV2Interface private i_vrfCoordinator; // Used to store VRF coordinator link
+    uint64 private i_subscriptionId; // Used to store subscription ID from VRF chainlink
+    bytes32 private i_keyHash; // Used to store key hash from VRF chainlink
+    uint32 private i_callbackGasLimit; // Used to specify the gas limit
+
+
 	string[] internal characterTokenURIs = [
 		"https://scarlet-live-iguana-759.mypinata.cloud/ipfs/QmNp4sHf4ccqPpqMBUCSG1CpFwFR4D6kgHesxc1mLs75am",
 		"https://scarlet-live-iguana-759.mypinata.cloud/ipfs/QmPHaFt55PeidgCuXe2kaeRYmLaBUPE1Y7Kg4tDyzapZHy",
